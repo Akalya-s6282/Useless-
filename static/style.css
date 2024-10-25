@@ -1,0 +1,45 @@
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.paper {
+    position: relative;
+    width: 600px;
+    height: 400px;
+    background-color: #fff;
+    border: 2px solid #ddd;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+#pen {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: red; /* Red box as pen placeholder */
+    top: 10px; /* Start position of pen */
+    left: 10px;
+}
+
+#text-to-write {
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 2px solid;
+    width: 0;
+    display: inline-block;
+    animation: typing 5s steps(30) forwards,blink 0.5s step-end infinite;
+}
+
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+@keyframes blink {
+    50% { border-color: transparent; }
+}
