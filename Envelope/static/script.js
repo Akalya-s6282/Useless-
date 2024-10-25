@@ -1,24 +1,39 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const pen = document.getElementById("pen");
-    const text = document.getElementById("text-to-write");
+    const textToWrite = document.getElementById("text-to-write");
+    const inputBox = document.getElementById("input-box");
+    const penCursor = document.getElementById("pen-cursor");
+    
+    // Function to simulate pen writing
+    function simulateWriting(text) {
+        textToWrite.innerText = ""; // Clear the current text
+        let index = 0; // Start from the first character
 
-    // Make the text visible for measurement
-    text.style.visibility = 'visible';
+        function writeNextCharacter() {
+            if (index < text.length) {
+                textToWrite.innerText += text.charAt(index); // Add one character
+                index++;
 
-    let cursorX = 10;
-    let cursorY = 25;
-    let speed = 100; // Adjust speed for a smoother effect
-
-    let interval = setInterval(() => {
-        cursorX += 10;
-
-        // Move the pen
-        pen.style.left = cursorX + 'px';
-        pen.style.top = cursorY + 'px';
-
-        // Stop the interval when the pen reaches the end of the text
-        if (cursorX >= text.offsetWidth + 20) {
-            clearInterval(interval);
+                // Update pen cursor position
+                const textWidth = textToWrite.offsetWidth;
+                const textHeight = textToWrite.offsetHeight; 
+                const paperRect = document.querySelector('.paper').getBoundingClientRect();
+                
+                penCursor.style.left = (paperRect.left + 15 + textWidth) + 'px'; 
+                penCursor.style.top = (paperRect.top + 10 + textHeight) + 'px'; 
+                
+                setTimeout(writeNextCharacter, 100); // Delay for next character
+            }
         }
-    }, speed);
+
+        writeNextCharacter(); // Start writing the text
+    }
+
+    inputBox.addEventListener('input', function() {
+        const text = inputBox.value; // Get the current input value
+        simulateWriting(text); // Call the simulate writing function with current input
+    });
+    
+    // Initial positioning of pen cursor
+    penCursor.style.left = '15px';
+    penCursor.style.top = '10px';
 });

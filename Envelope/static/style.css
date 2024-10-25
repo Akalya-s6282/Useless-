@@ -1,7 +1,8 @@
 body {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
     height: 100vh;
     background-color: #f0f0f0;
     font-family: Arial, sans-serif;
@@ -15,25 +16,41 @@ body {
     border: 1px solid #ccc;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-}
-
-#pen {
-    position: absolute;
-    width: 5px;
-    height: 30px;
-    background-color: #333;
-    border-radius: 2px;
-    bottom: 10px;
-    left: 10px;
+    margin-bottom: 20px;
+    padding-top: 10px; /* Adds some space at the top of the paper */
 }
 
 #writing {
     position: absolute;
-    top: 40px;
+    top: 10px; /* Start from the top of the paper */
     left: 15px;
-    white-space: nowrap;
+    white-space: pre-wrap; /* Allows text to wrap */
+    word-wrap: break-word; /* Ensures words break when reaching the end */
 }
 
 #text-to-write {
-    visibility: hidden; /* Hide initially, show later */
+    font-size: 16px;
+    line-height: 1.5; /* Increases line height for better readability */
+}
+
+#input-box {
+    padding: 10px;
+    width: 400px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    caret-color: transparent; /* Hide default caret */
+}
+
+#pen-cursor {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 10px solid #333; /* Creates a small pen tip */
+    transform: rotate(45deg); /* Rotate to make it look more like a pen */
+    pointer-events: none; /* Allows clicks to pass through the pen */
+    transition: left 0.1s ease, top 0.1s ease;
 }
